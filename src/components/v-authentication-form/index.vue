@@ -1,5 +1,9 @@
 <template>
     <div class="v-authentication-form">
+        <header>
+            <h2>Encoder</h2>
+        </header>
+
         <form>
             <label for="userEmail"></label>
             <input id="userEmail" type="email" autocomplete="off"  placeholder="Email"/>
@@ -8,6 +12,7 @@
             <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
 
             <button>Log in</button>
+            <p>Forgot password</p>
         </form>
     </div>
 </template>
@@ -19,23 +24,29 @@
 </script>
 
 <style scoped>
-    .v-authentication-form{
+    .v-authentication-form {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
         width: 550px;
         height: 500px;
+        color: #cbced0;
     }
 
-    form{
+    header h2{
+        margin: 15px;
+    }
+
+    form {
         width: 100%;
     }
 
-    label{
+    label {
         position: relative;
     }
 
-    label::before{
+    label::before {
         position: absolute;
         transform: translateY(50%);
         width: 20px;
@@ -43,15 +54,15 @@
         content: '';
     }
 
-    label:nth-of-type(1)::before{
+    label:nth-of-type(1)::before {
         background: url('./media/images/email-icon.png') center/contain no-repeat;
     }
 
-    label:nth-of-type(2)::before{
+    label:nth-of-type(2)::before {
         background: url('./media/images/password-icon.png') center/contain no-repeat;
     }
 
-    input{
+    input {
         display: block;
         width: 100%;
         height: 40px;
@@ -66,17 +77,22 @@
         color: #cbced0;
     }
 
-    input::-webkit-input-placeholder{
+    input::-webkit-input-placeholder {
         color: #cbced0;
     }
 
-    button{
+    button {
         width: 100%;
         height: 42px;
-        margin-top: 12px;
+        margin-top: 15px;
         background: #16a086;
         color: #cbced0;
         border: none;
         outline: none;
+    }
+
+     form p{
+       text-align: center;
+       cursor: pointer;
     }
 </style>
