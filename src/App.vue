@@ -5,8 +5,42 @@
 </template>
 
 <script>
+import {store} from './common/store/index';
+
 export default {
-  name: 'App'
+  name: 'App',
+  computed:{
+    currentUser(){
+      return store.state.currentUser;
+    },
+    currentRoute(){
+      return this.$route.path;
+    }
+  },
+  watch: {
+    currentRoute(newPath){
+        this.setCurrentPath(newPath);
+    },
+    currentUser(){
+      this.currentUser.name !== '' ? this.$router.push('/home-page') : this.$router.push('/');
+    }
+  },
+  created(){
+      this.$router.push({
+          path: '/home'
+      });
+  },
+  methods: {
+     setCurrentPath (newPath){
+        const actualPath = {};
+        actualPath.path = (this.currentUser.userName !== '') ? newPath : '/';
+
+        if(actualPath.path !== this.$route.path){
+          this.$router.push(actualPath);
+        }    
+     }
+  },
+  store
 }
 </script>
 
