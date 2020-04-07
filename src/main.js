@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import AuthenticationForm from './components/authentication-form/index';
+import RegistrationForm from './components/registration-form/index';
 import {connectStyle} from './common/connectStyleScript';
 
 Vue.config.productionTip = false;
@@ -13,6 +14,10 @@ const routes = [
   {
     path: '/',
     component: AuthenticationForm
+  },
+  {
+    path: '/registration',
+    component: RegistrationForm
   }
 ];
 
