@@ -58,22 +58,23 @@ export default {
     background: linear-gradient(159deg, rgba(0,159,194,1) 0%, rgba(13,10,11,1) 100%);
   }
 
-  .authentication-form {
-    align-self: center;
-    margin: 20px;
+  .form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  .authentication-form /deep/ header h2{
+  .form /deep/ header h2 {
       font: 400 56px 'Permanent Marker', sans-serif;;
   }
 
-  .authentication-form /deep/ form a,
-  .authentication-form /deep/ button{
+  .form /deep/ button, .form /deep/ a {
      font: 400 12px 'Arial', sans-serif;
   }
 
   .fade-enter-active, .fade-leave-active {
-    transition: opacity 1.5s;
+    transition: opacity 1s;
   }
 
   .fade-enter, .fade-leave-to{
