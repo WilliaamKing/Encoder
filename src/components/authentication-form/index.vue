@@ -1,15 +1,15 @@
 <template>
-    <div class="authentication-form">
+    <div class="authentication-form form">
         <header>
             <h2>Encoder</h2>
         </header>
 
         <form>
             <label for="userEmail"></label>
-            <input id="userEmail" type="email" autocomplete="off"  placeholder="Email"/>
+            <input id="userEmail" type="email" autocomplete="off"  placeholder="Email" required/>
 
             <label for="userPassword"></label>
-            <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
+            <input id="userPassword" type="password" autocomplete="off" placeholder="Password" required/>
 
             <button>Log in</button>
 
@@ -17,7 +17,6 @@
                 <router-link to='/restore-password'>Forgot password</router-link>
                 <router-link to='/registration'>Register</router-link>
             </div>
-            
         </form>
     </div>
 </template>
@@ -60,11 +59,11 @@
     }
 
     label:nth-of-type(1)::before {
-        background: url('./media/images/email-icon.png') center/contain no-repeat;
+        background: url('../../common/media/images/email-icon.png') center/contain no-repeat;
     }
 
     label:nth-of-type(2)::before {
-        background: url('./media/images/password-icon.png') center/contain no-repeat;
+        background: url('../../common/media/images/password-icon.png') center/contain no-repeat;
     }
 
     input {
@@ -96,14 +95,14 @@
         outline: none;
     }
 
-     form a{
+    form a {
        text-align: center;
        text-decoration: none;
        color: #cbced0;
        cursor: pointer;
     }
 
-    .additional-actions{
+    .additional-actions {
         display: flex;
         justify-content: space-evenly;
     }
