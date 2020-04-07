@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
-import VAuthenticationForm from './components/v-authentication-form/index';
+import AuthenticationForm from './components/authentication-form/index';
 import {connectStyle} from './common/connectStyleScript';
 
 Vue.config.productionTip = false;
@@ -12,7 +12,7 @@ connectStyle();
 const routes = [
   {
     path: '/',
-    component: VAuthenticationForm
+    component: AuthenticationForm
   }
 ];
 
