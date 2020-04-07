@@ -1,5 +1,5 @@
 <template>
-    <div class="v-authentication-form">
+    <div class="authentication-form">
         <header>
             <h2>Encoder</h2>
         </header>
@@ -12,19 +12,24 @@
             <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
 
             <button>Log in</button>
-            <p>Forgot password</p>
+
+            <div class='additional-actions'>
+                <router-link to='/restore-password'>Forgot password</router-link>
+                <router-link to='/registration'>Register</router-link>
+            </div>
+            
         </form>
     </div>
 </template>
 
 <script>
     export default{
-        name: 'v-authentication-form',
+        name: 'authentication-form',
     }
 </script>
 
 <style scoped>
-    .v-authentication-form {
+    .authentication-form {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -84,15 +89,22 @@
     button {
         width: 100%;
         height: 42px;
-        margin-top: 15px;
+        margin: 15px 0;
         background: #16a086;
         color: #cbced0;
         border: none;
         outline: none;
     }
 
-     form p{
+     form a{
        text-align: center;
+       text-decoration: none;
+       color: #cbced0;
        cursor: pointer;
+    }
+
+    .additional-actions{
+        display: flex;
+        justify-content: space-evenly;
     }
 </style>
