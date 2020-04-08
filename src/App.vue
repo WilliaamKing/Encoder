@@ -7,18 +7,10 @@
 </template>
 
 <script>
-import {store} from './common/store/index';
+import {store} from '@/store/index';
 
 export default {
   name: 'App',
-  data(){
-   return {
-      comingUser: {
-        email: '',
-        password: '',
-      }
-   }
-  },
   computed:{
     currentUser(){
       return store.state.currentUser;
