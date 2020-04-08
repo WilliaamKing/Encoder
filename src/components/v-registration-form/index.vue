@@ -4,12 +4,12 @@
             <h2>Registarion</h2>
         </header>
 
-        <form>
+        <form @submit="register">
             <label for="userName"></label>
-            <input id="userName" type="name" autocomplete="off"  placeholder="Username"/>
+            <input id="userName" type="name" autocomplete="off"  placeholder="Username" required v-model="name"/>
 
             <label for="userPassword"></label>
-            <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
+            <input id="userPassword" type="password" autocomplete="off" placeholder="Password" required v-model="password"/>
 
             <button>Register</button> 
 
@@ -21,9 +21,38 @@
 </template>
 
 <script>
-export default{
-    name: 'v-registrartion-form'
-}
+    import {mapState, mapActions} from 'vuex';
+
+    export default{
+        name: 'v-registrartion-form',
+        data(){
+            return {
+                name: '',
+                password: ''
+            }
+        },
+        computed: {
+            ...mapState(['users'])
+        },
+        methods: {
+            ...mapActions(['isUser', 'setCurrentUser', 'addUser']),
+            register(){
+                this.isUser(name)
+                    .then((result) => this.checkUser(result),
+                          (error) => console.log(error)); 
+            },
+            checkUser(result){
+                if(!result){
+                    const { name, password } = this;
+                    this.setCurrentUser({name, password});
+                    this.addUser({name, password})
+                }
+                else {
+                    this.$emit('authentication-error', `User with name ${this.name } was found`);
+                }
+            }
+        }
+    }
 </script>
 
 <style lang="scss" scoped>
