@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import {store} from '@/store/index';
+import {store} from './store/index';
 
 export default {
   name: 'App',
@@ -35,7 +35,7 @@ export default {
   methods: {
      setCurrentPath (newPath){
         const actualPath = {};
-        const newPathConditions = [this.currentUser.userName !== '', newPath === '/registration', newPath === '/restore-password'];
+        const newPathConditions = [this.currentUser.userName !== '', newPath === '/registration'];
         actualPath.path = (newPathConditions.some(el => el)) ? newPath : '/login';
 
         if(actualPath.path !== this.$route.path){

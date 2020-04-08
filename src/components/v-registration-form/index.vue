@@ -1,19 +1,19 @@
 <template>
-    <div class="restore-form form">
+    <div class="registrartion-form form">
         <header>
-            <h2>Restore password</h2>
+            <h2>Registarion</h2>
         </header>
 
         <form>
             <label for="userName"></label>
             <input id="userName" type="name" autocomplete="off"  placeholder="Username"/>
 
-            <label for="email"></label>
-            <input id="email" type="email" autocomplete="off"  placeholder="Email" required/>
+            <label for="userPassword"></label>
+            <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
 
-            <button>Log in</button>
+            <button>Register</button> 
 
-            <div class='additional-actions'>
+             <div class='additional-actions'>
                 <router-link to='/'>Back</router-link>
             </div>
         </form>
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-    export default{
-        name: 'v-restore-form',
-    }
+export default{
+    name: 'v-registrartion-form'
+}
 </script>
 
 <style lang="scss" scoped>
-    .authentication-form {
+    .registrartion-form {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -39,7 +39,6 @@
 
     header h2{
         margin: 15px;
-        color: #cbced0;
     }
 
     form {
@@ -58,12 +57,12 @@
         content: '';
     }
 
-     label:nth-of-type(1)::before {
+    label:nth-of-type(1)::before {
         background: url('../../common/media/images/user-icon.png') center/contain no-repeat;
     }
 
     label:nth-of-type(2)::before {
-        background: url('../../common/media/images/email-icon.png') center/contain no-repeat;
+        background: url('../../common/media/images/password-icon.png') center/contain no-repeat;
     }
 
     input {

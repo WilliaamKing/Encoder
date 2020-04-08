@@ -1,36 +1,33 @@
 <template>
-    <div class="registrartion-form form">
+    <div class="authentication-form form">
         <header>
-            <h2>Registarion</h2>
+            <h2>Encoder</h2>
         </header>
 
         <form>
             <label for="userName"></label>
             <input id="userName" type="name" autocomplete="off"  placeholder="Username"/>
 
-            <label for="userEmail"></label>
-            <input id="userEmail" type="email" autocomplete="off"  placeholder="Email"/>
-
             <label for="userPassword"></label>
             <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
 
-            <button>Register</button> 
+            <button>Log in</button>
 
-             <div class='additional-actions'>
-                <router-link to='/'>Back</router-link>
+            <div class='additional-actions'>
+                <router-link to='/registration'>Register</router-link>
             </div>
         </form>
     </div>
 </template>
 
 <script>
-export default{
-    name: 'v-registrartion-form'
-}
+    export default{
+        name: 'v-authentication-form'
+    }
 </script>
 
 <style lang="scss" scoped>
-    .registrartion-form {
+    .authentication-form {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -65,10 +62,6 @@ export default{
     }
 
     label:nth-of-type(2)::before {
-        background: url('../../common/media/images/email-icon.png') center/contain no-repeat;
-    }
-
-    label:nth-of-type(3)::before {
         background: url('../../common/media/images/password-icon.png') center/contain no-repeat;
     }
 
