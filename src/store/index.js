@@ -1,27 +1,42 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {SET_CURRENT_USER} from './mutation-types';
+import {SET_CURRENT_USER, ADD_USER} from './mutation-types';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
         currentUser: {
-            userName: '',
-            userEmail: '',
-            userPassword: ''
-        }
+            name: '',
+            password: ''
+        },
+        users: []
     },
     mutations: {
         [SET_CURRENT_USER](state, authenticationUser){
             state.currentUser = authenticationUser;
+        },
+        [ADD_USER]({users}, user){
+            users.push(user);
         }
     },
     actions: {
-        setCurrentUser({commit}, authenticationUser){
-            if(authenticationUser.name && authenticationUser.userEmail && authenticationUser.userPassword) {
-                commit(SET_CURRENT_USER, authenticationUser);
+        setCurrentUser({commit}, user){
+           const {name, password} = user;
+
+           if (name && password){
+                commit(SET_CURRENT_USER, {name, password});
             }
+        },
+        addUser({commit}, user){
+            const {name, password} = user;
+            
+            if (name && password){
+                commit(ADD_USER, {user, password,  historyOfCoding: []});
+            }
+        },
+        isUser({state: {users}}, name){
+            return users.find((el) => el.name === name);
         }
     }
 });
