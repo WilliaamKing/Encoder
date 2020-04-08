@@ -4,12 +4,12 @@
             <h2>Encoder</h2>
         </header>
 
-        <form>
+        <form @submit.prevent="login">
             <label for="userName"></label>
-            <input id="userName" type="name" autocomplete="off"  placeholder="Username"/>
+            <input id="userName" type="name" autocomplete="off"  placeholder="Username" required v-model="name"/>
 
             <label for="userPassword"></label>
-            <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
+            <input id="userPassword" type="password" autocomplete="off" placeholder="Password" required v-model="password"/>
 
             <button>Log in</button>
 
@@ -21,8 +21,37 @@
 </template>
 
 <script>
+    import {mapState, mapActions} from 'vuex';
+
     export default{
-        name: 'v-authentication-form'
+        name: 'v-authentication-form',
+        data (){
+            return {
+                name: '',
+                password: '',
+            }
+        },
+        computed: {
+            ...mapState(['users'])
+        },
+        methods: {
+            ...mapActions(['isUser', 'setCurrentUser']),
+            login(){
+                this.isUser(this.name)
+                    .then((result)=> this.checkUser(result),
+                          (error) => console.log(error));
+            },
+            checkUser(result){
+                if(result){
+                    const { password, name } = this;
+                    const searchUser = this.users.find((el)=> el.name === this.name);
+                    searchUser.password === password ? this.setCurrentUser({name, password}): this.$emit('authentication-error', 'Password isn\'t correct');
+                }
+                else {
+                    this.$emit('authentication-error', 'User wasn\'t found');
+                }
+            }
+        }
     }
 </script>
 
