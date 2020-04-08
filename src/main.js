@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
-import AuthenticationForm from './components/authentication-form/index';
-import RegistrationForm from './components/registration-form/index';
+import VAuthenticationForm from './components/v-authentication-form/index.vue';
+import VRegistrationForm from './components/v-registration-form/index.vue';
+import VRestoreForm from './components/v-restore-form/index.vue';
 import {connectStyle} from './common/connectStyleScript';
 
 Vue.config.productionTip = false;
@@ -13,11 +14,15 @@ connectStyle();
 const routes = [
   {
     path: '/login',
-    component: AuthenticationForm
+    component: VAuthenticationForm
   },
   {
     path: '/registration',
-    component: RegistrationForm
+    component: VRegistrationForm
+  },
+  {
+    path: '/restore-password',
+    component: VRestoreForm
   }
 ];
 
