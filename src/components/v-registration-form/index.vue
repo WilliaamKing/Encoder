@@ -1,34 +1,36 @@
 <template>
-    <div class="authentication-form form">
+    <div class="registrartion-form form">
         <header>
-            <h2>Encoder</h2>
+            <h2>Registarion</h2>
         </header>
 
         <form>
+            <label for="userName"></label>
+            <input id="userName" type="name" autocomplete="off"  placeholder="Username"/>
+
             <label for="userEmail"></label>
-            <input id="userEmail" type="email" autocomplete="off"  placeholder="Email" required/>
+            <input id="userEmail" type="email" autocomplete="off"  placeholder="Email"/>
 
             <label for="userPassword"></label>
-            <input id="userPassword" type="password" autocomplete="off" placeholder="Password" required/>
+            <input id="userPassword" type="password" autocomplete="off" placeholder="Password"/>
 
-            <button>Log in</button>
+            <button>Register</button> 
 
-            <div class='additional-actions'>
-                <router-link to='/restore-password'>Forgot password</router-link>
-                <router-link to='/registration'>Register</router-link>
+             <div class='additional-actions'>
+                <router-link to='/'>Back</router-link>
             </div>
         </form>
     </div>
 </template>
 
 <script>
-    export default{
-        name: 'authentication-form',
-    }
+export default{
+    name: 'v-registrartion-form'
+}
 </script>
 
-<style scoped>
-    .authentication-form {
+<style lang="scss" scoped>
+    .registrartion-form {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -59,10 +61,14 @@
     }
 
     label:nth-of-type(1)::before {
-        background: url('../../common/media/images/email-icon.png') center/contain no-repeat;
+        background: url('../../common/media/images/user-icon.png') center/contain no-repeat;
     }
 
     label:nth-of-type(2)::before {
+        background: url('../../common/media/images/email-icon.png') center/contain no-repeat;
+    }
+
+    label:nth-of-type(3)::before {
         background: url('../../common/media/images/password-icon.png') center/contain no-repeat;
     }
 
@@ -95,15 +101,15 @@
         outline: none;
     }
 
-    form a {
-       text-align: center;
-       text-decoration: none;
-       color: #cbced0;
-       cursor: pointer;
-    }
-
     .additional-actions {
         display: flex;
         justify-content: space-evenly;
+
+        a {
+            text-align: center;
+            text-decoration: none;
+            color: #cbced0;
+            cursor: pointer;
+        }
     }
 </style>
