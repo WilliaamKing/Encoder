@@ -12,7 +12,7 @@ connectStyle();
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     component: AuthenticationForm
   },
   {
