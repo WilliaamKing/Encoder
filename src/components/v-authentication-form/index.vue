@@ -23,7 +23,7 @@
 
 <script>
     export default{
-        name: 'v-authentication-form',
+        name: 'v-authentication-form'
     }
 </script>
 
