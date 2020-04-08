@@ -11,6 +11,14 @@ import {store} from './common/store/index';
 
 export default {
   name: 'App',
+  data(){
+   return {
+      comingUser: {
+        email: '',
+        password: '',
+      }
+   }
+  },
   computed:{
     currentUser(){
       return store.state.currentUser;
@@ -47,7 +55,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   #app {
     display: flex;
     justify-content: center;
@@ -63,14 +71,14 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
 
-  .form /deep/ header h2 {
-      font: 400 56px 'Permanent Marker', sans-serif;;
-  }
+      & /deep/ header h2 {
+        font: 400 56px 'Permanent Marker', sans-serif;;
+      }
 
-  .form /deep/ button, .form /deep/ a {
-     font: 400 12px 'Arial', sans-serif;
+      & /deep/ button, & /deep/ a {
+      font: 400 12px 'Arial', sans-serif;
+      }
   }
 
   .fade-enter-active, .fade-leave-active {
