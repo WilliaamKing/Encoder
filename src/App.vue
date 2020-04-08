@@ -24,7 +24,7 @@ export default {
         this.setCurrentPath(newPath);
     },
     currentUser(){
-      this.currentUser.name !== '' ? this.$router.push('/home-page') : this.$router.push('/');
+      this.currentUser.name !== '' ? this.$router.push('/') : this.$router.push('/login');
     }
   },
   created(){
@@ -36,7 +36,7 @@ export default {
      setCurrentPath (newPath){
         const actualPath = {};
         const newPathConditions = [this.currentUser.userName !== '', newPath === '/registration', newPath === '/restore-password'];
-        actualPath.path = (newPathConditions.some(el => el)) ? newPath : '/';
+        actualPath.path = (newPathConditions.some(el => el)) ? newPath : '/login';
 
         if(actualPath.path !== this.$route.path){
           this.$router.push(actualPath);
