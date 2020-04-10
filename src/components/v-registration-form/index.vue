@@ -61,8 +61,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        width: 550px;
-        height: 500px;
+        max-width: 550px;
+        width: 85%;
+        height: 400px;
         color: #cbced0;
     }
 
