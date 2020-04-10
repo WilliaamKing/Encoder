@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <transition name='fade'>
+    <transition name='fade' appear>
+      <v-application-bar v-if="isUserAuthenicated"></v-application-bar>
       <router-view @authentication-error='showMessage'></router-view>
     </transition>
   </div>
@@ -9,22 +10,26 @@
 <script>
 import {store} from './store/index';
 import {mapState, mapActions} from 'vuex';
+import VApplicationBar from './components/v-application-bar/index.vue';
 
 export default {
   name: 'App',
+  components: {
+      VApplicationBar
+  },
   computed:{
     ...mapState(['currentUser', 'users']),
-    currentRoute(){
-      return this.$route.path;
+    isUserAuthenicated (){
+      return this.currentUser.name !== '';
     }
   },
   watch: {
-    currentRoute(newPath){
-        this.setCurrentPath(newPath);
+    $route (to){
+      this.setCurrentPath(to.path)
     },
     currentUser(){
       this.updateLocalStorage();
-      this.currentUser.name !== '' ? this.$router.push('/') : this.$router.push('/login');
+      this.isUserAuthenicated ? this.$router.push('/') : this.$router.push('/login');
     },
     users(){
       this.updateLocalStorage();
@@ -38,10 +43,10 @@ export default {
      ...mapActions(['setCurrentUser', 'addUser']),
      setCurrentPath (newPath){
         const actualPath = {};
-        const newFirstPathConditions = [this.currentUser.name !== '', newPath === '/registration'];
+        const newFirstPathConditions = [this.isUserAuthenicated, newPath === '/registration'];
         actualPath.path = (newFirstPathConditions.some(el => el)) ? newPath : '/login';
 
-        if (this.currentUser !== '' && (newPath === '/login' || newPath === '/registration'))
+        if (this.isUserAuthenicated && (newPath === '/login' || newPath === '/registration'))
             actualPath.path = '/';
 
         if(actualPath.path !== this.$route.path){
@@ -75,9 +80,11 @@ export default {
   #app {
     display: flex;
     justify-content: center;
-    align-content: space-between;
+    align-content: center;
+    min-width: 360px;
     width: 100%;
     height: 100%;
+    padding: 0 25px;
     background: rgb(0,159,194);
     background: linear-gradient(159deg, rgba(0,159,194,1) 0%, rgba(13,10,11,1) 100%);
   }
@@ -88,12 +95,12 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
 
-      & /deep/ header h2 {
-        font: 400 56px 'Permanent Marker', sans-serif;;
+      & h2 {
+        font: 400 56px 'Permanent Marker', sans-serif;
       }
 
-      & /deep/ button, & /deep/ a {
-      font: 400 12px 'Arial', sans-serif;
+      & button, & a {
+        font: 400 12px 'Arial', sans-serif;
       }
   }
 
