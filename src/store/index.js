@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
         },
         [ADD_USER]({users}, user){
             users.push(user);
-        }
+        },
     },
     actions: {
         setCurrentUser({commit}, user){
@@ -28,15 +28,15 @@ export const store = new Vuex.Store({
                 commit(SET_CURRENT_USER, {name, password});
             }
         },
-        addUser({commit}, user){
-            const {name, password} = user;
-            
+        addUser({commit}, {name, password}){ 
             if (name && password){
-                commit(ADD_USER, {user, password,  historyOfCoding: []});
+                commit(ADD_USER, {name, password,  historyOfCoding: []});
             }
         },
-        isUser({state: {users}}, name){
-            return users.find((el) => el.name === name);
+        reserCurrentUser ({commit}){
+            const name = '';
+            const password = '';
+            commit(SET_CURRENT_USER, {name, password});
         }
     }
 });
