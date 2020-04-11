@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name='fade' appear>
-      <v-application-bar v-if="isUserAuthenicated"></v-application-bar>
+      <v-application-bar v-if="isUserAuthenicated" @sign-out="reserCurrentUser"></v-application-bar>
       <router-view @authentication-error='showMessage'></router-view>
     </transition>
 
@@ -64,7 +64,7 @@ export default {
      this.setCurrentPath('/');
   },
   methods: {
-     ...mapActions(['setCurrentUser', 'addUser']),
+     ...mapActions(['setCurrentUser', 'addUser', 'reserCurrentUser']),
      setCurrentPath (newPath){
         const actualPath = {};
         const newFirstPathConditions = [this.isUserAuthenicated, newPath === '/registration'];
