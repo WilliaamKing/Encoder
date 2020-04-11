@@ -37,19 +37,19 @@
         methods: {
             ...mapActions(['isUser', 'setCurrentUser', 'addUser']),
             register(){
-                this.isUser(name)
-                    .then((result) => this.checkUser(result),
-                          (error) => console.log(error)); 
-            },
-            checkUser(result){
-                if(!result){
-                    const { name, password } = this;
+                const { name, password } = this;
+                const serachResult = this.isExistingUser(name);
+
+                if (!serachResult) {
                     this.setCurrentUser({name, password});
                     this.addUser({name, password})
                 }
                 else {
                     this.$emit('authentication-error', `User with name ${this.name } was found`);
                 }
+            },
+            isExistingUser(name){
+                return new Boolean(this.users.find((el) => el.name === name));
             }
         }
     }
