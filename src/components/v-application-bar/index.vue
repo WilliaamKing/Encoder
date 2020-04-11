@@ -5,7 +5,20 @@
         </figure>
 
         <div class="actions">
-            <button class="sign-out">Sign-out</button>
+             <v-menu bottom right transition="slide-y-transition">
+                <template v-slot:activator="{ on }">
+                    <v-btn dark icon v-on="on">
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                </template>
+
+                <v-list>
+                    <v-list-item v-for="({action, title}, index) in additionalActions" 
+                                 @click="action" :key="getKey('action', index + 1)">
+                        <v-list-item-title>{{ title }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+             </v-menu>
         </div>
     </header>
 </template>
@@ -17,7 +30,21 @@
         name: "v-application-bar",
         data (){
             return {
+                additionalActions: [
+                    { 
+                      title: 'Sign out', 
+                      action: this.signOut 
+                    }
+                ],
                 logo
+            }
+        },
+        methods: {
+            getKey (id, index){
+                return `${id}-${index}`;
+            },
+            signOut(){
+                this.$emit('sign-out');
             }
         }
     }
@@ -39,6 +66,25 @@
         & img {
             width: 50px;
             height: 50px;
+        }
+    }
+
+    .actions {
+        & .v-menu {
+            display: block;
+
+            & .v-list {
+                padding: 0px;
+            }
+        }
+
+        & .v-btn--icon.v-size--default {
+            height: 40px;
+            width: 40px;
+
+            & .v-icon {
+                font-size: 32px;
+            }
         }
     }
 </style>
