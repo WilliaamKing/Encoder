@@ -4,6 +4,24 @@
       <v-application-bar v-if="isUserAuthenicated"></v-application-bar>
       <router-view @authentication-error='showMessage'></router-view>
     </transition>
+
+    <v-dialog v-model="isError" max-width="360">
+         <v-card>
+              <v-card-title class="headline">
+                  <h2>Error</h2>
+              </v-card-title>
+
+              <v-card-text>
+                  {{errorMessage}}
+              </v-card-text>
+
+              <v-card-actions>
+                  <v-btn color="#21b8c6" text @click="closeErrorCard">
+                      OK
+                  </v-btn>
+              </v-card-actions>
+          </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -14,6 +32,12 @@ import VApplicationBar from './components/v-application-bar/index.vue';
 
 export default {
   name: 'App',
+  data (){
+    return {
+      errorMessage: '',
+      isError: false,
+    }
+  },
   components: {
       VApplicationBar
   },
@@ -66,7 +90,11 @@ export default {
         ENCODER_USERS.users.map((el)=> this.addUser(el));
      },
      showMessage(message){
-        alert(message);
+        this.isError = true;
+        this.errorMessage = message;
+     },
+     closeErrorCard(){
+       this.isError = false;
      },
      updateLocalStorage(){
        localStorage.setItem('encoder-users', JSON.stringify(this.$store.state));
@@ -108,7 +136,38 @@ export default {
     transition: opacity 1s;
   }
 
-  .fade-enter, .fade-leave-to{
+  .fade-enter, .fade-leave-to {
     opacity: 0;
   }
+
+    div.v-dialog__container {
+      display: block;
+     
+       & .v-card {
+           & .v-card__title {
+               padding: 16px 0px 10px 15px;
+
+               & h2 {
+                   font: 700 24px 'Arial', sans-serif;
+                   color: #16a086;
+               }
+           }
+
+           & .v-card__text {
+               padding: 0px 0px 5px 15px;
+           }
+
+           & .v-card__actions {
+               display: flex;
+               justify-content: flex-end;
+               padding-top: 0px;
+               padding-right: 0px;
+
+               & .v-btn {
+                   font-weight: 700;
+                   color: #16a086;
+               }
+           }
+       }
+    }
 </style>
