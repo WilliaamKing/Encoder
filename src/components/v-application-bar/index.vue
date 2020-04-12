@@ -34,6 +34,10 @@
                     { 
                       title: 'Sign out', 
                       action: this.signOut 
+                    },
+                    {
+                      title: 'Delete account',
+                      action: this.deleteAccount
                     }
                 ],
                 logo
@@ -45,6 +49,9 @@
             },
             signOut(){
                 this.$emit('sign-out');
+            },
+            deleteAccount(){
+                this.$emit('delete-account')
             }
         }
     }
