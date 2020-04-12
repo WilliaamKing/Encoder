@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {SET_CURRENT_USER, ADD_USER} from './mutation-types';
+import {SET_CURRENT_USER, SET_ERROR, ADD_USER} from './mutation-types';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
+        error: {
+            status: false
+        },
         currentUser: {
             name: '',
             password: ''
@@ -15,6 +18,9 @@ export const store = new Vuex.Store({
     mutations: {
         [SET_CURRENT_USER](state, authenticationUser){
             state.currentUser = authenticationUser;
+        },
+        [SET_ERROR](state, error){
+            state.error = error;
         },
         [ADD_USER]({users}, user){
             users.push(user);
@@ -26,6 +32,13 @@ export const store = new Vuex.Store({
 
            if (name && password){
                 commit(SET_CURRENT_USER, {name, password});
+            }
+        },
+        setError ({commit}, error){
+            const {status} = error;
+
+            if (status !== undefined) {
+                commit (SET_ERROR, {status});
             }
         },
         addUser({commit}, {name, password}){ 
