@@ -1,24 +1,30 @@
 <template>
   <div id="app">
     <transition name='fade' appear>
-      <v-application-bar v-if="isUserAuthenicated" @sign-out="reserCurrentUser"></v-application-bar>
+      <v-application-bar v-if="isUserAuthenicated" 
+                         @sign-out="signOutHandler"
+                         @delete-account="deleteAccountHandler">
+      </v-application-bar>
       <router-view @authentication-error='showMessage'></router-view>
     </transition>
 
-    <v-dialog v-model="isError" max-width="360">
+    <v-dialog v-model="isShowDialog" max-width="360">
          <v-card>
               <v-card-title class="headline">
-                  <h2>Error</h2>
+                  <h2>Message</h2>
               </v-card-title>
 
-              <v-card-text>
-                  {{errorMessage}}
-              </v-card-text>
+              <v-card-text>{{dialogMessage}}</v-card-text>
 
               <v-card-actions>
-                  <v-btn color="#21b8c6" text @click="closeErrorCard">
-                      OK
-                  </v-btn>
+                  <template v-if="isError">
+                      <v-btn text @click="closeDialog">OK</v-btn>
+                  </template>
+
+                  <template v-if="isQuestion">
+                     <v-btn  text @click="positiveAnswerAction">Yes</v-btn>
+                     <v-btn  text @click="closeDialog">No</v-btn>
+                  </template>
               </v-card-actions>
           </v-card>
     </v-dialog>
@@ -34,8 +40,10 @@ export default {
   name: 'App',
   data (){
     return {
-      errorMessage: '',
+      dialogMessage: '',
       isError: false,
+      isQuestion: false,
+      positiveAnswerAction: null,
     }
   },
   components: {
@@ -45,6 +53,15 @@ export default {
     ...mapState(['currentUser', 'users']),
     isUserAuthenicated (){
       return this.currentUser.name !== '';
+    },
+    isShowDialog: {
+       get: function (){
+        return this.isError || this.isQuestion;
+      },
+
+      set: function (value){
+        this.isError = this.isQuestion = value;
+      }
     }
   },
   watch: {
@@ -67,7 +84,7 @@ export default {
      this.setCurrentPath('/');
   },
   methods: {
-     ...mapActions(['setCurrentUser', 'addUser', 'reserCurrentUser', 'setError']),
+     ...mapActions(['setCurrentUser', 'addUser', 'resetCurrentUser', 'setError', 'deleteCurrentUser']),
      setCurrentPath (newPath) {
         const actualPath = {};
         const newFirstPathConditions = [this.isUserAuthenicated, newPath === '/registration'];
@@ -94,13 +111,33 @@ export default {
      },
      showMessage(message) {
         this.isError = true;
-        this.errorMessage = message;
+        this.dialogMessage = message;
      },
-     closeErrorCard() {
-       this.isError = false;
+     closeDialog() {
+      this.isShowDialog = false;
      },
      updateLocalStorage() {
        localStorage.setItem('encoder-users', JSON.stringify(this.$store.state));
+     },
+     deleteAccountHandler(){
+        this.showQuestion('Are you sure that you want to delete account?');
+
+        this.positiveAnswerAction = () => {
+            this.deleteCurrentUser();
+            this.closeDialog();
+        };
+     },
+     signOutHandler(){
+       this.showQuestion('Are you sure that you want to sign out?');
+
+       this.positiveAnswerAction = () => {
+          this.resetCurrentUser();
+          this.closeDialog();
+       }
+     },
+     showQuestion (message){
+       this.dialogMessage = message;
+       this.isQuestion = true;
      }
   },
   store
