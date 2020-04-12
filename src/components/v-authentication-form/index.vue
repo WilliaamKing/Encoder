@@ -32,7 +32,14 @@
             }
         },
         computed: {
-            ...mapState(['users'])
+            ...mapState(['users', 'error'])
+        },
+        watch: {
+            error (to, from){
+                if (!to.status && from.status) {
+                    this.name = this.password = '';
+                }
+            }
         },
         methods: {
             ...mapActions(['isUser', 'setCurrentUser']),
@@ -52,7 +59,7 @@
                     this.$emit('authentication-error', 'User wasn\'t found');
                 }
             },
-            findUser(name){
+            findUser(name) {
                 return this.users.find((el) => el.name === name);
             }
         }
