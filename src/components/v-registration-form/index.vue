@@ -38,9 +38,9 @@
             ...mapActions(['isUser', 'setCurrentUser', 'addUser']),
             register(){
                 const { name, password } = this;
-                const serachResult = this.isExistingUser(name);
+                const searchResult = this.isExistingUser(name);
 
-                if (!serachResult) {
+                if (!searchResult) {
                     this.setCurrentUser({name, password});
                     this.addUser({name, password})
                 }
@@ -49,7 +49,8 @@
                 }
             },
             isExistingUser(name){
-                return new Boolean(this.users.find((el) => el.name === name));
+                const searchResult = this.users.find((el) => el.name === name);
+                return searchResult !== undefined;
             }
         }
     }
