@@ -32,7 +32,14 @@
             }
         },
         computed: {
-            ...mapState(['users'])
+            ...mapState(['users', 'error'])
+        },
+        watch: {
+            error (to, from){
+                if (!to.status && from.status) {
+                    this.name = this.password = '';
+                }
+            }
         },
         methods: {
             ...mapActions(['isUser', 'setCurrentUser', 'addUser']),
