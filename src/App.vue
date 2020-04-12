@@ -48,24 +48,27 @@ export default {
     }
   },
   watch: {
-    $route (to){
+    $route (to) {
       this.setCurrentPath(to.path)
     },
-    currentUser(){
+    currentUser() {
       this.updateLocalStorage();
       this.isUserAuthenicated ? this.$router.push('/') : this.$router.push('/login');
     },
-    users(){
+    users() {
       this.updateLocalStorage();
+    },
+    isError(to) {
+      this.setError({status: to});
     }
   },
-  created(){
-      this.uploadStore();
+  created() {
+     this.uploadStore();
      this.setCurrentPath('/');
   },
   methods: {
-     ...mapActions(['setCurrentUser', 'addUser', 'reserCurrentUser']),
-     setCurrentPath (newPath){
+     ...mapActions(['setCurrentUser', 'addUser', 'reserCurrentUser', 'setError']),
+     setCurrentPath (newPath) {
         const actualPath = {};
         const newFirstPathConditions = [this.isUserAuthenicated, newPath === '/registration'];
         actualPath.path = (newFirstPathConditions.some(el => el)) ? newPath : '/login';
@@ -73,11 +76,11 @@ export default {
         if (this.isUserAuthenicated && (newPath === '/login' || newPath === '/registration'))
             actualPath.path = '/';
 
-        if(actualPath.path !== this.$route.path){
+        if(actualPath.path !== this.$route.path) {
             this.$router.push(actualPath);
         }    
      },
-     uploadStore(){
+     uploadStore() {
         const defaultUser = { name: '',  password: '', historyOfCoding: []};
 
         if (localStorage.getItem('encoder-users') === null) {
@@ -89,14 +92,14 @@ export default {
 
         ENCODER_USERS.users.map((el)=> this.addUser(el));
      },
-     showMessage(message){
+     showMessage(message) {
         this.isError = true;
         this.errorMessage = message;
      },
-     closeErrorCard(){
+     closeErrorCard() {
        this.isError = false;
      },
-     updateLocalStorage(){
+     updateLocalStorage() {
        localStorage.setItem('encoder-users', JSON.stringify(this.$store.state));
      }
   },
