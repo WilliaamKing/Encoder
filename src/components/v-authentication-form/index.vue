@@ -37,19 +37,23 @@
         methods: {
             ...mapActions(['isUser', 'setCurrentUser']),
             login(){
-                this.isUser(this.name)
-                    .then((result)=> this.checkUser(result),
-                          (error) => console.log(error));
-            },
-            checkUser(result){
-                if(result){
-                    const { password, name } = this;
-                    const searchUser = this.users.find((el)=> el.name === this.name);
-                    searchUser.password === password ? this.setCurrentUser({name, password}): this.$emit('authentication-error', 'Password isn\'t correct');
+                const {password, name} = this;
+                const user = this.findUser(name);
+
+                if(user){
+                    if (user.password === password) {
+                        this.setCurrentUser({name, password});
+                    }
+                    else {
+                        this.$emit('authentication-error', 'Password isn\'t correct');
+                    }
                 }
                 else {
                     this.$emit('authentication-error', 'User wasn\'t found');
                 }
+            },
+            findUser(name){
+                return this.users.find((el) => el.name === name);
             }
         }
     }
