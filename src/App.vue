@@ -156,6 +156,10 @@ export default {
     padding: 0 25px;
     background: rgb(0,159,194);
     background: linear-gradient(159deg, rgba(0,159,194,1) 0%, rgba(13,10,11,1) 100%);
+
+    @media screen and (max-width: 479px){
+      padding: 0 10px;
+    }
   }
 
   .app-transition {
@@ -173,7 +177,7 @@ export default {
     transform: translate(-50%, -50%);
 
       & h2 {
-        font: 400 56px 'Permanent Marker', sans-serif;
+        font: 400 52px 'Permanent Marker', sans-serif;
       }
 
       & button, & input, & a {
