@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <transition name='fade' appear>
+    <transition-group class="app-transition" name='fade' tag="div" appear>
       <v-application-bar v-if="isUserAuthenicated" 
                          @sign-out="signOutHandler"
-                         @delete-account="deleteAccountHandler">
+                         @delete-account="deleteAccountHandler"
+                         key="app-bar">
       </v-application-bar>
-      <router-view @authentication-error='showMessage'></router-view>
-    </transition>
+      <router-view @authentication-error='showMessage' key="viewer"></router-view>
+    </transition-group>
 
     <v-dialog v-model="isShowDialog" max-width="360">
          <v-card>
@@ -155,6 +156,14 @@ export default {
     padding: 0 25px;
     background: rgb(0,159,194);
     background: linear-gradient(159deg, rgba(0,159,194,1) 0%, rgba(13,10,11,1) 100%);
+  }
+
+  .app-transition {
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     width: 100%;
+     height: 100%;
   }
 
   .form {
