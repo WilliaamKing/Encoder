@@ -4,3 +4,10 @@
     font-weight: 400;
     font-style: normal
 }
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('../media/fonts/Firacode/Firacodemedium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
