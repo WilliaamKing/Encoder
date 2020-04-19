@@ -167,7 +167,7 @@ export default {
         font: 400 56px 'Permanent Marker', sans-serif;
       }
 
-      & button, & a {
+      & button, & input, & a {
         font: 400 12px 'Arial', sans-serif;
       }
   }

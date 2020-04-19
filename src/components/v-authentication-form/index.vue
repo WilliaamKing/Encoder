@@ -99,11 +99,11 @@
     }
 
     label:nth-of-type(1)::before {
-        background: url('../../common/media/images/user-icon.png') center/contain no-repeat;
+        background: url('../../assets/media/images/user-icon.png') center/contain no-repeat;
     }
 
     label:nth-of-type(2)::before {
-        background: url('../../common/media/images/password-icon.png') center/contain no-repeat;
+        background: url('../../assets/media/images/password-icon.png') center/contain no-repeat;
     }
 
     input {
