@@ -40,7 +40,7 @@ export default {
             default: 'left'
         },
         status: {
-            validator: value => ['developed', 'test version'].indexOf(value) != -1,
+            validator: value => ['developed', 'beta version'].indexOf(value) != -1,
             default: 'developed'
         }
     },

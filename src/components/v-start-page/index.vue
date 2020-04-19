@@ -25,28 +25,32 @@ export default {
                     description: 'Encoding data using some famous encoding algorithms',
                     color: '#ffffff',
                     image: codingIcon,
-                    imagePosition: 'right'
+                    imagePosition: 'right',
+                    status: "beta version",
                 },
                 {
                     title: 'Decode',
                     description: 'Decoding data using some famous encoding algorithms',
                     color: '#ffffff',
                     image: decodingIcon,
-                    imagePosition: 'left'
+                    imagePosition: 'left',
+                    status: "beta version",
                 },
                  {
                     title: 'Find open key',
                     description: 'Key selection for data decoding',
                     color: '#ffffff',
                     image: hackingIcon,
-                    imagePosition: 'right'
+                    imagePosition: 'right',
+                    status: "beta version",
                 },
                 {
                     title: 'History',
                     description: 'History of using this application',
                     color: '#ffffff',
                     image: historyIcon,
-                    imagePosition: 'left'
+                    imagePosition: 'left',
+                    status: "beta version",
                 }
             ]
         }
@@ -71,7 +75,6 @@ export default {
 
 <style lang="scss" scoped>
     .v-start-page {
-        transform: translateY(75px);
         max-width: 1024px;
         width: 100%;
 
