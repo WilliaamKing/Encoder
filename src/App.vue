@@ -6,7 +6,10 @@
                          @delete-account="deleteAccountHandler"
                          key="app-bar">
       </v-application-bar>
+
       <router-view @authentication-error='showMessage' key="viewer"></router-view>
+
+      <v-footer-bar key="footer-bar"></v-footer-bar>
     </transition-group>
 
     <v-dialog v-model="isShowDialog" max-width="360">
@@ -36,6 +39,7 @@
 import {store} from './store/index';
 import {mapState, mapActions} from 'vuex';
 import VApplicationBar from './components/v-application-bar/index.vue';
+import VFooterBar from './components/v-footer-bar/index.vue';
 
 export default {
   name: 'App',
@@ -48,7 +52,8 @@ export default {
     }
   },
   components: {
-      VApplicationBar
+      VApplicationBar,
+      VFooterBar
   },
   computed:{
     ...mapState(['currentUser', 'users']),
