@@ -41,6 +41,9 @@ export default {
 
         & .v-icon, &:visited, &:active{
             color: #ffffff;
+        }
+
+        & .v-icon {
             margin-right: 10px;
         }
     }
