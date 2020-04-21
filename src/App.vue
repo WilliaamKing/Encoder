@@ -147,9 +147,6 @@ export default {
 
 <style lang="scss">
   #app {
-    display: flex;
-    justify-content: center;
-    align-content: center;
     min-width: 360px;
     width: 100%;
     height: 100%;
@@ -164,7 +161,8 @@ export default {
 
   .app-transition {
      display: flex;
-     justify-content: center;
+     flex-direction: column;
+     align-items: center;
      align-content: center;
      width: 100%;
      height: 100%;

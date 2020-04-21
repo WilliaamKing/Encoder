@@ -59,8 +59,6 @@
 
 <style lang="scss" scoped>
     .v-application-bar {
-        position: absolute;
-        top: 0px;
         display: flex;
         justify-content: space-between;
         align-items: center;
