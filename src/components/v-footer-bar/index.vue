@@ -26,6 +26,10 @@ export default {
         height: 50px;
         margin: 20px auto;
         color: #ffffff;
+
+        & > p {
+            font-family: "Fira Code", sans-serif;
+        }
     }
 
     .git-section {
@@ -33,8 +37,9 @@ export default {
         align-items: center;
         text-decoration: none;
         font: 400 24px "Fira Code", sans-serif;
+        color: #ffffff;
 
-        & .v-icon, &:visited {
+        & .v-icon, &:visited, &:active{
             color: #ffffff;
             margin-right: 10px;
         }
