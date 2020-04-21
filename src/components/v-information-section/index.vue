@@ -1,6 +1,6 @@
 <template>
     <div :class="['v-information-section', parrentBlockClasses]" :style="{backgroundColor: color}">
-        <div class="status">
+        <div class="status" v-if="isShow">
             {{status}}
         </div>
 
@@ -47,6 +47,9 @@ export default {
     computed: {
         parrentBlockClasses (){
             return { left: this.imagePosition === 'left', right: this.imagePosition === 'right' };
+        },
+        isShow (){
+            return this.status !== 'developed';
         }
     }
 }
