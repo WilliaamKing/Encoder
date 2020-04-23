@@ -3,7 +3,8 @@
         <header v-html="welcomeMessage"></header>
         <v-information-section v-for="(section, index) in sections"
                                v-bind="section"
-                               :key="getKey('section', index)"></v-information-section>
+                               :key="getKey('section', index)"
+                               @click.native = "goToPage(section.id)"></v-information-section>
    </div>
 </template>
 
@@ -22,6 +23,7 @@ export default {
             sections: [
                 {
                     title: 'Encode',
+                    id: 'encode',
                     description: 'Encoding data using some famous encoding algorithms',
                     color: '#ffffff',
                     image: codingIcon,
@@ -30,6 +32,7 @@ export default {
                 },
                 {
                     title: 'Decode',
+                    id: 'decode',
                     description: 'Decoding data using some famous encoding algorithms',
                     color: '#ffffff',
                     image: decodingIcon,
@@ -38,6 +41,7 @@ export default {
                 },
                  {
                     title: 'Find open key',
+                    id: 'find-key',
                     description: 'Key selection for data decoding',
                     color: '#ffffff',
                     image: hackingIcon,
@@ -46,6 +50,7 @@ export default {
                 },
                 {
                     title: 'History',
+                    id: 'history',
                     description: 'History of using this application',
                     color: '#ffffff',
                     image: historyIcon,
@@ -65,6 +70,9 @@ export default {
     methods: {
         getKey(id, index){
             return `${id}-${index}`;
+        },
+        goToPage (path) {
+            this.$router.push(path.toLowerCase());
         }
     },
     components: {
