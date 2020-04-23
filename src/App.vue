@@ -9,7 +9,14 @@
 
       <router-view @authentication-error='showMessage' key="viewer"></router-view>
 
-      <v-footer-bar key="footer-bar"></v-footer-bar>
+      <v-footer-bar key="footer-bar">
+          <a class="git-section" href="https://github.com/WilliaamKing/Encoder" target="_blank">
+              <v-icon>mdi-github</v-icon>
+              <p>Encoder</p>
+          </a>
+
+          <p>Developed by Dmitriy Shmaliuk</p>
+      </v-footer-bar>
     </transition-group>
 
     <v-dialog v-model="isShowDialog" max-width="360">
@@ -96,8 +103,9 @@ export default {
         const newFirstPathConditions = [this.isUserAuthenicated, newPath === '/registration'];
         actualPath.path = (newFirstPathConditions.some(el => el)) ? newPath : '/login';
 
-        if (this.isUserAuthenicated && (newPath === '/login' || newPath === '/registration'))
-            actualPath.path = '/';
+        if (this.isUserAuthenicated && (newPath === '/login' || newPath === '/registration')){
+          actualPath.path = '/';
+        }
 
         if(actualPath.path !== this.$route.path) {
             this.$router.push(actualPath);
@@ -154,7 +162,7 @@ export default {
   #app {
     min-width: 360px;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     padding: 0 25px;
     background: rgb(0,159,194);
     background: linear-gradient(159deg, rgba(0,159,194,1) 0%, rgba(13,10,11,1) 100%);
@@ -225,5 +233,27 @@ export default {
                }
            }
        }
+    }
+
+    .v-footer-bar {
+        & > p {
+            font-family: "Fira Code", sans-serif;
+        }
+
+        & .git-section {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        font: 400 24px "Fira Code", sans-serif;
+        color: #ffffff;
+
+        & .v-icon, &:visited, &:active{
+            color: #ffffff;
+        }
+
+        & .v-icon {
+            margin-right: 10px;
+        }
+      }
     }
 </style>
