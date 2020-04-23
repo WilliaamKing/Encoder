@@ -1,11 +1,6 @@
 <template>
     <footer class="v-footer-bar">
-        <a class="git-section" href="https://github.com/WilliaamKing/Encoder" target="_blank">
-            <v-icon>mdi-github</v-icon>
-            <p>Encoder</p>
-        </a>
-
-        <p>Developed by Dmitriy Shmaliuk</p>
+        <slot></slot>
     </footer>
 </template>
 
@@ -26,25 +21,5 @@ export default {
         height: 50px;
         margin: 20px auto;
         color: #ffffff;
-
-        & > p {
-            font-family: "Fira Code", sans-serif;
-        }
-    }
-
-    .git-section {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        font: 400 24px "Fira Code", sans-serif;
-        color: #ffffff;
-
-        & .v-icon, &:visited, &:active{
-            color: #ffffff;
-        }
-
-        & .v-icon {
-            margin-right: 10px;
-        }
     }
 </style>
