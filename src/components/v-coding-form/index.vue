@@ -32,7 +32,7 @@ export default {
         },
         selectLabel (){
             return `Alogorithm of ${this.$route.path.slice(1, this.$route.path.length - 1)}ing`;
-        } 
+        }
     }
 }
 </script>
@@ -54,27 +54,29 @@ export default {
                 text-transform: uppercase;
             }
         }
-    }
 
-    div.v-coding-form .theme--light.v-label, .theme--light.v-icon {
-        color: #ffffff;
-    }
-
-    div.v-input__control::hover {
-         & .v-input__slot:before {
-            border-color: #ffffff;
+        & div.v-coding-form .theme--light.v-label, .theme--light.v-icon,
+        & label.theme--light.v-label {
+            color: #ffffff;
         }
-    }
 
-    div.theme--light.v-text-field > .v-input__control > .v-input__slot:before {
-        transition: none;
-        border-color: #ffffff;
+        & div.theme--light.v-text-field > .v-input__control > .v-input__slot:before {
+            transition: none;
+            border-color: #ffffff; 
+        }
 
-       
-    }
+        & div.v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after {
+            transition: none;
+            transform: none;
+        }
 
-    div.v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after {
-        transition: none;
-        transform: none;
+        & .v-input--is-focused div.v-menu {
+            display: block;
+
+            & > div.v-menu__content {
+                top: 33px !important;
+                left: 0px !important;
+            }
+        }
     }
 </style>
