@@ -40,6 +40,7 @@ export default {
 <style lang="scss">
     .v-coding-form {
         width: 100%;
+        max-width: 1024px;
 
         & header {
             font: 400 24px 'Fira Code', sans-serif;
@@ -56,13 +57,17 @@ export default {
         }
 
         & div.v-coding-form .theme--light.v-label, .theme--light.v-icon,
+        & div.theme--light.v-select .v-select__selection--comma,
         & label.theme--light.v-label {
             color: #ffffff;
         }
 
-        & div.theme--light.v-text-field > .v-input__control > .v-input__slot:before {
-            transition: none;
-            border-color: #ffffff; 
+        & div.theme--light.v-text-field {
+            &:not(.v-input--has-state):hover > .v-input__control > .v-input__slot:before,
+            & > .v-input__control > .v-input__slot:before {
+                transition: none;
+                border-color: #ffffff; 
+            }
         }
 
         & div.v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after {
