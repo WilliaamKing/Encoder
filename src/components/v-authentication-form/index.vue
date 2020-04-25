@@ -78,7 +78,7 @@
         color: #cbced0;
     }
 
-    header h2{
+    header h2 {
         margin: 15px;
     }
 
