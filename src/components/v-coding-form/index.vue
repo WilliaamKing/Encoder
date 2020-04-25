@@ -26,6 +26,9 @@
                                 label="Decoding text">
             </v-encoder-textarea>
         </div>
+
+        <button class="coding-button">{{buttonText}}</button>
+        <router-link class="exit-button" to='/'>Back</router-link>
     </div>
 </template>
 
@@ -49,6 +52,9 @@ export default {
     computed: {
         name (){
             return (this.$route.path + ' form').slice(1);
+        },
+        buttonText (){
+            return (this.$route.path === '/encode') ? 'Encoding' : 'Decoding';
         },
         isActive (){
             return {
@@ -143,16 +149,16 @@ export default {
             & .v-encoder-textarea {
                 position: absolute;
                 width: 100%;
-                transition: top 1s linear;
+                transition: top 500ms linear;
 
                 &.active {
                     top: 0px;
-                    animation: rescale 1s both;
+                    animation: rescale 500ms both;
                 }
 
                 &.disactive {
                     top: 226px;
-                    animation: scale 1s both;
+                    animation: scale 500ms both;
                 }
 
                 & textarea {
@@ -163,9 +169,31 @@ export default {
 
         & .swap {
             position: absolute;
-            top: 103px;
-            right: 10px;
+            top: 105px;
+            right: 0px;
             z-index: 3;
+        }
+
+        & .v-text-field .v-label--active {
+            transform: translateY(-16px) translateX(-20px) scale(0.75);
+        }
+
+        &  .coding-button {
+            width: 100%;
+            height: 42px;
+            margin: 15px 0;
+            background: #16a086;
+            color: #ffffff;
+            border: none;
+            outline: none;
+        }
+
+        & .exit-button {
+            display: block;
+            font-size: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
         }
     }
 
