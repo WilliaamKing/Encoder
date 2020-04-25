@@ -47,7 +47,7 @@ export default {
             this.active();
         },
         onFocusoutHandler (){
-            if (this.isValueEmpty) {
+            if (this.isValueEmpty ()) {
                 this.disactive ();
             }
         }
