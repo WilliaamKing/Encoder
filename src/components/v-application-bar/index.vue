@@ -1,6 +1,6 @@
 <template>
     <header class="v-application-bar">
-        <figure class="logo">
+        <figure class="logo" @click="goToStartPage">
             <img :src="logo" alt="logo"/>
         </figure>
 
@@ -52,6 +52,9 @@
             },
             deleteAccount(){
                 this.$emit('delete-account')
+            },
+            goToStartPage (){
+                this.$router.push('/');
             }
         }
     }
@@ -65,7 +68,6 @@
         max-width: 1024px;
         width: 100%;
         height: 70px;
-        padding: 0 20px;
     }
 
     .logo {
