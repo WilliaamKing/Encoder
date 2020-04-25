@@ -8,10 +8,15 @@
                    color="#ffffff"
                    :label="selectLabel">
         </v-select>
+
+        <v-encoder-textarea label="Encoding text"></v-encoder-textarea>
+        <v-encoder-textarea label="Decoding text"></v-encoder-textarea>
     </div>
 </template>
 
 <script>
+import VEncoderTextarea from '../v-encoder-textarea/index.vue';
+
 export default {
     name: "v-coding-form",
     data (){
@@ -33,6 +38,9 @@ export default {
         selectLabel (){
             return `Alogorithm of ${this.$route.path.slice(1, this.$route.path.length - 1)}ing`;
         }
+    },
+    components: {
+        VEncoderTextarea
     }
 }
 </script>
@@ -54,6 +62,10 @@ export default {
             & h2:first-letter {
                 text-transform: uppercase;
             }
+        }
+
+        & .v-select {
+            height: 60px;
         }
 
         & div.v-coding-form .theme--light.v-label, .theme--light.v-icon,
