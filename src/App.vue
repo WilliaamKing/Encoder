@@ -9,7 +9,7 @@
 
       <router-view @authentication-error='showMessage' key="viewer"></router-view>
 
-      <v-footer-bar key="footer-bar">
+      <v-footer-bar key="footer-bar" v-if="isUserAuthenicated">
           <a class="git-section" href="https://github.com/WilliaamKing/Encoder" target="_blank">
               <v-icon>mdi-github</v-icon>
               <p>Encoder</p>
