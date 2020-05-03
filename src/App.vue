@@ -1,14 +1,23 @@
 <template>
   <div id="app">
-    <transition-group class="app-transition" name='fade' tag="div" appear>
-      <v-application-bar v-if="isUserAuthenicated" 
-                         @sign-out="signOutHandler"
-                         @delete-account="deleteAccountHandler"
-                         key="app-bar">
-      </v-application-bar>
+    <transition name="fade-slow" appear 
+                apper-class="fade-slow-appear" 
+                appear-active-class="fade-slow-appear-active" 
+                mode="out-in">
+        <v-application-bar v-if="isUserAuthenicated" 
+                            @sign-out="signOutHandler"
+                            @delete-account="deleteAccountHandler">
+        </v-application-bar>
+    </transition>
 
-      <router-view @authentication-error='showMessage' key="viewer"></router-view>
+    <transition name="fade" mode="out-in" appear>
+        <router-view @authentication-error='showMessage' key="viewer"></router-view>
+    </transition>
 
+    <transition name="fade-slow" appear 
+                apper-class="fade-slow-appear" 
+                appear-active-class="fade-slow-appear-active" 
+                mode="out-in">
       <v-footer-bar key="footer-bar" v-if="isUserAuthenicated">
           <a class="git-section" href="https://github.com/WilliaamKing/Encoder" target="_blank">
               <v-icon>mdi-github</v-icon>
@@ -17,7 +26,7 @@
 
           <p>Developed by Dmitriy Shmaliuk</p>
       </v-footer-bar>
-    </transition-group>
+    </transition>
 
     <v-dialog v-model="isShowDialog" max-width="360">
          <v-card>
@@ -159,6 +168,10 @@ export default {
 
 <style lang="scss">
   #app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
     min-width: 360px;
     width: 100%;
     min-height: 100vh;
@@ -169,15 +182,6 @@ export default {
     @media screen and (max-width: 479px){
       padding: 0 10px;
     }
-  }
-
-  .app-transition {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     align-content: center;
-     width: 100%;
-     height: 100%;
   }
 
   .form {
@@ -195,64 +199,71 @@ export default {
       }
   }
 
-  .fade-enter-active, .fade-leave-active {
+  .fade-enter-active, .fade-leave-active,
+  .fade-slowe-leave-active, .fade-slow-appear-active {
     transition: opacity 1s;
   }
 
-  .fade-enter, .fade-leave-to {
+  .fade-slow-enter-active {
+    transition: opacity 1s 1s;
+  }
+
+  .fade-enter, .fade-leave-to, 
+  .fade-slow-enter, .fade-slow-leave-to,
+  .fade-slow-appear {
     opacity: 0;
   }
 
-    div.v-dialog__container {
-      display: block;
-     
-       & .v-card {
-           & .v-card__title {
-               padding: 16px 0px 10px 15px;
+  div.v-dialog__container {
+    display: block;
+    
+      & .v-card {
+          & .v-card__title {
+              padding: 16px 0px 10px 15px;
 
-               & h2 {
-                   font: 700 24px 'Arial', sans-serif;
-                   color: #16a086;
-               }
-           }
+              & h2 {
+                  font: 700 24px 'Arial', sans-serif;
+                  color: #16a086;
+              }
+          }
 
-           & .v-card__text {
-               padding: 0px 0px 5px 15px;
-           }
+          & .v-card__text {
+              padding: 0px 0px 5px 15px;
+          }
 
-           & .v-card__actions {
-               display: flex;
-               justify-content: flex-end;
-               padding-top: 0px;
-               padding-right: 0px;
+          & .v-card__actions {
+              display: flex;
+              justify-content: flex-end;
+              padding-top: 0px;
+              padding-right: 0px;
 
-               & .v-btn {
-                   font-weight: 700;
-                   color: #16a086;
-               }
-           }
-       }
-    }
+              & .v-btn {
+                  font-weight: 700;
+                  color: #16a086;
+              }
+          }
+      }
+  }
 
-    .v-footer-bar {
-        & > p {
-            font-family: "Fira Code", sans-serif;
-        }
+  .v-footer-bar {
+      & > p {
+          font-family: "Fira Code", sans-serif;
+      }
 
-        & .git-section {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        font: 400 24px "Fira Code", sans-serif;
-        color: #ffffff;
+      & .git-section {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font: 400 24px "Fira Code", sans-serif;
+      color: #ffffff;
 
-        & .v-icon, &:visited, &:active{
-            color: #ffffff;
-        }
+      & .v-icon, &:visited, &:active{
+          color: #ffffff;
+      }
 
-        & .v-icon {
-            margin-right: 10px;
-        }
+      & .v-icon {
+          margin-right: 10px;
       }
     }
+  }
 </style>
