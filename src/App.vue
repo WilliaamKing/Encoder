@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <transition name="fade-slow" appear 
-                apper-class="fade-slow-appear" 
-                appear-active-class="fade-slow-appear-active" 
-                mode="out-in">
+    <transition v-bind="fadeSlowTransitionOptions">
         <v-application-bar v-if="isUserAuthenicated" 
-                            @sign-out="signOutHandler"
-                            @delete-account="deleteAccountHandler">
+                           @sign-out="signOutHandler"
+                           @delete-account="deleteAccountHandler">
         </v-application-bar>
     </transition>
 
@@ -14,10 +11,7 @@
         <router-view @authentication-error='showMessage' key="viewer"></router-view>
     </transition>
 
-    <transition name="fade-slow" appear 
-                apper-class="fade-slow-appear" 
-                appear-active-class="fade-slow-appear-active" 
-                mode="out-in">
+    <transition v-bind="fadeSlowTransitionOptions">
       <v-footer-bar key="footer-bar" v-if="isUserAuthenicated">
           <a class="git-section" href="https://github.com/WilliaamKing/Encoder" target="_blank">
               <v-icon>mdi-github</v-icon>
@@ -65,6 +59,13 @@ export default {
       isError: false,
       isQuestion: false,
       positiveAnswerAction: null,
+      fadeSlowTransitionOptions: {
+        name:"fade-slow",
+        appear: true, 
+        apperClass: "fade-slow-appear", 
+        appearActiveClass: "fade-slow-appear-active", 
+        mode: "out-in"
+      }
     }
   },
   components: {
