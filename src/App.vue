@@ -112,10 +112,6 @@ export default {
         const newFirstPathConditions = [this.isUserAuthenicated, newPath === '/registration'];
         actualPath.path = (newFirstPathConditions.some(el => el)) ? newPath : '/login';
 
-        if(this.isUserAuthenicated && (newPath === '/login' || newPath === '/registration')) {
-          console.log('t');
-        }
-
         if(actualPath.path !== this.$route.path) {
             this.$router.push(actualPath);
         }    
