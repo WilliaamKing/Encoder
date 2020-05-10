@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "encoding-module": "git+ssh://git@github.com/WilliaamKing/Encoding-module.git#develop",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuetify": "^2.2.11",
