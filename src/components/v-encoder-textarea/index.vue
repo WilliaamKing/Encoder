@@ -1,10 +1,11 @@
 <template>
     <div :class="['v-encoder-textarea', componentClasses]">
         <p class="label">{{label}}</p>
-        <textarea v-model="value"
+        <textarea :value="value"
                   :readonly="readonly"
                   @focus="onFocusHandler" 
-                  @focusout="onFocusoutHandler">
+                  @focusout="onFocusoutHandler"
+                  @input="onInput">
         </textarea>
     </div>
 </template>
@@ -14,11 +15,14 @@ export default {
     name: "v-encoder-textarea",
     data(){
         return {
-            isActive: false,
-            value: ''
+            isActive: false
         }
     },
     props: {
+        value: {
+            type: String,
+            default: ''
+        },
         label: {
             type: String,
             default: "Label"
@@ -50,6 +54,9 @@ export default {
             if (this.isValueEmpty ()) {
                 this.disactive ();
             }
+        },
+        onInput (event){
+            this.$emit('input', event.target.value);
         }
     },
     watch: {
