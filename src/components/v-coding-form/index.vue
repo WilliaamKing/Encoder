@@ -6,7 +6,8 @@
 
          <v-select :items="algorithms"
                    :label="selectLabel"
-                   color="#ffffff">
+                   color="#ffffff"
+                   v-model="selectValue">
         </v-select>
 
         <v-icon class="swap" @click="flip">mdi-swap-vertical</v-icon>
@@ -16,14 +17,16 @@
                                 id="encodingInput"
                                 :readonly="!isActive.encode"
                                 ref="encodingInput" 
-                                label="Encoding text">
+                                label="Encoding text"
+                                v-model="encodingValue">
             </v-encoder-textarea>
 
             <v-encoder-textarea :class="{active: isActive.decode, disactive: !isActive.decode}" 
                                 id="decodingInput"
                                 :readonly="!isActive.decode"
                                 ref="decodingInput"
-                                label="Decoding text">
+                                label="Decoding text"
+                                v-model="decodingValue">
             </v-encoder-textarea>
         </div>
 
@@ -34,6 +37,7 @@
 
 <script>
 import VEncoderTextarea from '../v-encoder-textarea/index.vue';
+import {encoding as morseEncoding, decoding as morseDecoding} from 'encoding-module/morse.js';
 
 export default {
     name: "v-coding-form",
@@ -47,6 +51,10 @@ export default {
                  'Codeword Code',
                  'Playfer Code'
              ],
+             activeSection: null,
+             selectValue: null,
+             encodingValue: '',
+             decodingValue: ''
         }
     },
     computed: {
@@ -66,22 +74,44 @@ export default {
             return `Alogorithm of ${this.$route.path.slice(1, this.$route.path.length - 1)}ing`;
         }
     },
+    watch: {
+        encodingValue (to){
+            if (this.activeSection === 'encode') {
+                switch (this.selectValue) {
+                    case 'Morse code': {
+                        this.decodingValue = morseEncoding(to);
+                        break;
+                    }
+                }
+            }
+        },
+        decodingValue (to){
+            if (this.activeSection === 'decode') {
+                switch (this.selectValue) {
+                    case 'Morse code': {
+                        this.encodingValue = morseDecoding(to);
+                        break;
+                    }
+                }
+            }
+        },
+        $route (to) {
+            const currentPath = to.path;
+            this.setActiveSection (currentPath.slice(1));
+        }
+    },
     methods: {
         flip (){
             const newPath = this.$route.path === '/encode' ? 'decode' : 'encode';
-            this.$router.push(newPath);
-            this.changeTranslateText();
+            this.$router.replace(newPath);
         },
-        changeTranslateText(){
-            if (this.isActive.encode) {
-                this.$refs.encodingInput.value = this.$refs.decodingInput.value;
-                this.$refs.decodingInput.value = '';
-            }
-            else {
-                this.$refs.decodingInput.value = this.$refs.encodingInput.value;
-                this.$refs.encodingInput.value = '';
-            }
+        setActiveSection (section){
+            this.activeSection = section;
         }
+    },
+    created (){
+        const currentPath = this.$route.path.slice(1);
+        this.setActiveSection (currentPath);
     },
     components: {
         VEncoderTextarea
@@ -162,7 +192,8 @@ export default {
                 }
 
                 & textarea {
-                    font-family: 'Fira Code', sans-serif;
+                    font-family: monospace;
+                    font-size: 14px;
                 }
             }
         }
