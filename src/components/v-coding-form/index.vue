@@ -30,7 +30,7 @@
             </v-encoder-textarea>
         </div>
 
-        <button class="coding-button">{{buttonText}}</button>
+        <button class="coding-button" @click="code">{{buttonText}}</button>
         <router-link class="exit-button" to='/'>Back</router-link>
     </div>
 </template>
@@ -51,7 +51,6 @@ export default {
                  'Codeword Code',
                  'Playfer Code'
              ],
-             activeSection: null,
              selectValue: null,
              encodingValue: '',
              decodingValue: ''
@@ -74,32 +73,6 @@ export default {
             return `Alogorithm of ${this.$route.path.slice(1, this.$route.path.length - 1)}ing`;
         }
     },
-    watch: {
-        encodingValue (to){
-            if (this.activeSection === 'encode') {
-                switch (this.selectValue) {
-                    case 'Morse code': {
-                        this.decodingValue = morseEncoding(to);
-                        break;
-                    }
-                }
-            }
-        },
-        decodingValue (to){
-            if (this.activeSection === 'decode') {
-                switch (this.selectValue) {
-                    case 'Morse code': {
-                        this.encodingValue = morseDecoding(to);
-                        break;
-                    }
-                }
-            }
-        },
-        $route (to) {
-            const currentPath = to.path;
-            this.setActiveSection (currentPath.slice(1));
-        }
-    },
     methods: {
         flip (){
             const newPath = this.$route.path === '/encode' ? 'decode' : 'encode';
@@ -107,11 +80,27 @@ export default {
         },
         setActiveSection (section){
             this.activeSection = section;
+        },
+        code (){
+            const currentPath = this.$route.path.slice(1);
+            currentPath === 'encode' ? this.encode () : this.decode (); 
+        },
+        encode () {
+            switch (this.selectValue) {
+                case 'Morse code': {
+                    this.decodingValue = morseEncoding(this.encodingValue);
+                    break;
+                }
+            }
+        },
+        decode () {
+            switch (this.selectValue) {
+                case 'Morse code': {
+                    this.encodingValue = morseDecoding(this.decodingValue);
+                    break;
+                }
+            }      
         }
-    },
-    created (){
-        const currentPath = this.$route.path.slice(1);
-        this.setActiveSection (currentPath);
     },
     components: {
         VEncoderTextarea
