@@ -43,7 +43,8 @@
 
 <script>
 import VEncoderTextarea from '../v-encoder-textarea/index.vue';
-import {encoding as morseEncoding, decoding as morseDecoding} from 'encoding-module/morse.js';
+import {encoding as morseEncoding, decoding as morseDecoding} from 'encoding-module/morse';
+import {encoding as ceasarEncoding, decoding as ceasarDecoding} from 'encoding-module/ceasar';
 
 export default {
     name: "v-coding-form",
@@ -83,6 +84,13 @@ export default {
             return this.selectValue === 'Caesar\'s code';
         }
     },
+    watch: {
+        ceasarCodingKey (to) {
+            if (to < 0) {
+                this.ceasarCodingKey = 0;
+            }
+        }
+    },
     methods: {
         flip (){
             const newPath = this.$route.path === '/encode' ? 'decode' : 'encode';
@@ -101,12 +109,20 @@ export default {
                     this.decodingValue = morseEncoding(this.encodingValue);
                     break;
                 }
+                case 'Caesar\'s code': {
+                    this.decodingValue = ceasarEncoding(this.encodingValue, this.ceasarCodingKey);
+                    break;
+                }
             }
         },
         decode () {
             switch (this.selectValue) {
                 case 'Morse code': {
                     this.encodingValue = morseDecoding(this.decodingValue);
+                    break;
+                }
+                case 'Caesar\'s code': {
+                    this.encodingValue = ceasarDecoding(this.decodingValue, this.ceasarCodingKey);
                     break;
                 }
             }      
