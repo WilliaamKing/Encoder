@@ -45,6 +45,7 @@
 import VEncoderTextarea from '../v-encoder-textarea/index.vue';
 import {encoding as morseEncoding, decoding as morseDecoding} from 'encoding-module/morse';
 import {encoding as ceasarEncoding, decoding as ceasarDecoding} from 'encoding-module/ceasar';
+import {encoding as atbashEncoding, decoding as atbashDecoding} from 'encoding-module/atbash';
 
 export default {
     name: "v-coding-form",
@@ -53,10 +54,7 @@ export default {
              algorithms: [
                  'Morse code',
                  'Caesar\'s code',
-                 'Atbash Cipher',
-                 'Vernam cipher',
-                 'Codeword Code',
-                 'Playfer Code'
+                 'Atbash Cipher'
              ],
              selectValue: null,
              encodingValue: '',
@@ -113,6 +111,10 @@ export default {
                     this.decodingValue = ceasarEncoding(this.encodingValue, this.ceasarCodingKey);
                     break;
                 }
+                case 'Atbash Cipher': {
+                    this.decodingValue = atbashEncoding(this.encodingValue);
+                    break;
+                }
             }
         },
         decode () {
@@ -123,6 +125,10 @@ export default {
                 }
                 case 'Caesar\'s code': {
                     this.encodingValue = ceasarDecoding(this.decodingValue, this.ceasarCodingKey);
+                    break;
+                }
+                case 'Atbash Cipher': {
+                    this.encodingValue = atbashDecoding(this.decodingValue);
                     break;
                 }
             }      
