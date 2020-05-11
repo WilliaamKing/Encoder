@@ -12,6 +12,12 @@
 
         <v-icon class="swap" @click="flip">mdi-swap-vertical</v-icon>
 
+        <transition name="fade">
+           <label class="ceasar-key" v-if="showedCeasarKeyInput">
+                Key: <input type="number" min="0" v-model="ceasarCodingKey"/>
+           </label>
+        </transition>
+
         <div class="coding-inputs">
             <v-encoder-textarea :class="{active: isActive.encode, disactive: !isActive.encode}"
                                 id="encodingInput"
@@ -53,7 +59,8 @@ export default {
              ],
              selectValue: null,
              encodingValue: '',
-             decodingValue: ''
+             decodingValue: '',
+             ceasarCodingKey: 0
         }
     },
     computed: {
@@ -71,6 +78,9 @@ export default {
         },
         selectLabel (){
             return `Alogorithm of ${this.$route.path.slice(1, this.$route.path.length - 1)}ing`;
+        },
+        showedCeasarKeyInput (){
+            return this.selectValue === 'Caesar\'s code';
         }
     },
     methods: {
@@ -215,6 +225,31 @@ export default {
             text-decoration: none;
             color: #ffffff;
         }
+
+        & .ceasar-key {
+            font-family: 'Fira code', sans-serif;
+            color: #ffffff;
+            
+            &  input {
+                width: 50px;
+                text-align: center;
+                background-color: #ffffff;
+                color: #000000;
+                border-radius: 5px;
+
+                &:focus {
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
     }
 
     @keyframes scale {
