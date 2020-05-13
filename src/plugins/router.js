@@ -4,6 +4,7 @@ import VStartPage from '@/components/v-start-page/index.vue';
 import VAuthenticationForm from '@/components/v-authentication-form/index.vue';
 import VRegistrationForm from '@/components/v-registration-form/index.vue';
 import VCoddingForm from '@/components/v-coding-form/index.vue';
+import VHistoryPage from '@/components/v-history-page/index.vue';
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,10 @@ const routes = [
     {
       path: '/decode',
       component: VCoddingForm
+    },
+    {
+      path: '/history',
+      component: VHistoryPage
     }
   ];
 
