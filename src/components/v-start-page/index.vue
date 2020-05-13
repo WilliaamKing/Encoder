@@ -46,7 +46,7 @@ export default {
                     color: '#ffffff',
                     image: hackingIcon,
                     imagePosition: 'right',
-                    status: "beta version",
+                    status: "in developing",
                 },
                 {
                     title: 'History',
