@@ -43,7 +43,7 @@
             },
             operationName: {
                 type: String,
-                default: 'operation name'
+                validator: value => ['encoding', 'decoding'].indexOf(value) != -1
             },
             algorithm: {
                 type: String,
