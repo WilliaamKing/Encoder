@@ -46,7 +46,11 @@ export default {
     },
     computed: {
         parrentBlockClasses (){
-            return { left: this.imagePosition === 'left', right: this.imagePosition === 'right' };
+            return { 
+                     left: this.imagePosition === 'left', 
+                     right: this.imagePosition === 'right', 
+                     block: this.status === 'in developing'
+                   };
         },
         isShow (){
             return this.status !== 'developed';
@@ -78,6 +82,10 @@ export default {
             & .status {
                 right: 10px;
             }
+        }
+
+        &.block {
+            pointer-events: none;
         }
 
         & .status {
