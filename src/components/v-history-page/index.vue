@@ -4,6 +4,10 @@
             <h2>History</h2>
         </header>
 
+        <div class="message" v-if="isHistoryEmpty">
+            <h3>The history is empty</h3>
+        </div>
+
         <v-history-card v-for="(record, index) in currentUserHistory"
                         :date="record.date"
                         :operation-name="record.operation"
@@ -24,8 +28,13 @@ export default {
     name: 'v-history-page',
     data () {
        return {
-            currentUserHistory: null,
+            currentUserHistory: [],
        }
+    },
+    computed: {
+        isHistoryEmpty (){
+            return this.currentUserHistory.length === 0;
+        }
     },
     methods: {
         ...mapActions (['getCurrentUserHistory']),
@@ -47,6 +56,7 @@ export default {
 <style lang="scss" scoped>
     .v-history-page {
         width: 100%;
+        max-width: 1024px;
     }
 
     header {
@@ -66,5 +76,11 @@ export default {
 
     .v-history-card {
         margin-bottom: 5px;
+    }
+
+    .message {
+        font-family: 'Fira Code', sans-serif;
+        text-align: center;
+        color: #ff000e;
     }
 </style>
