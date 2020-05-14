@@ -153,6 +153,7 @@ export default {
                         encodingText: this.encodingValue,
                         decodingText: this.decodingValue,
                         alhorithm: this.selectValue,
+                        date: new Date (),
                         key: this.selectValue === 'Caesar\'s code' ? this.ceasarCodingKey : null
                    };
         }
