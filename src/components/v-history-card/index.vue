@@ -75,7 +75,7 @@
 <style lang="scss" scoped>
     .v-history-card {
         position: relative;
-        width: 100%;
+        width: 99%;
     }
 
     .main-information {
