@@ -8,7 +8,7 @@
     </transition>
 
     <transition name="fade" mode="out-in" appear>
-        <router-view @authentication-error='showMessage' key="viewer"></router-view>
+        <router-view @authentication-error='showMessage' @update-storage="updateLocalStorage"></router-view>
     </transition>
 
     <transition v-bind="fadeSlowTransitionOptions">
