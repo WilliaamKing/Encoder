@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {SET_CURRENT_USER, SET_ERROR, ADD_USER, DELETE_CURRENT_USER} from './mutation-types';
+import {SET_CURRENT_USER, SET_ERROR, ADD_USER, 
+        DELETE_CURRENT_USER, ADD_RECCORD_TO_HISTORY} from './mutation-types';
 
 Vue.use(Vuex);
 
@@ -27,6 +28,9 @@ export const store = new Vuex.Store({
         },
         [DELETE_CURRENT_USER]({users}, currentUserIndex) {   
             users.splice(currentUserIndex, 1); 
+        },
+        [ADD_RECCORD_TO_HISTORY] ({users}, {writedReccord, currentUserIndex}) {
+            users[currentUserIndex].historyOfCoding.push(writedReccord);
         }
     },
     actions: {
@@ -44,9 +48,9 @@ export const store = new Vuex.Store({
                 commit (SET_ERROR, {status});
             }
         },
-        addUser({commit}, {name, password}){ 
+        addUser({commit}, {name, password, historyOfCoding = []}){ 
             if (name && password){
-                commit(ADD_USER, {name, password,  historyOfCoding: []});
+                commit(ADD_USER, {name, password,  historyOfCoding});
             }
         },
         resetCurrentUser ({commit}){
@@ -61,6 +65,29 @@ export const store = new Vuex.Store({
                 commit(DELETE_CURRENT_USER, currentUserIndex); 
                 dispatch('resetCurrentUser');   
             }
+        },
+        addReccordToHistory ({commit, state: {currentUser, users}}, reccord) {
+            const currentUserIndex = users.findIndex((el) => el.name === currentUser.name);
+            const {operation, alhorithm, encodingText, decodingText, key} = reccord;
+            const addReccordConditions = getAddReccordConditions (currentUserIndex, reccord);
+            const isAddReccord = addReccordConditions.every(el => el);
+           
+            if (isAddReccord) {
+                const writedReccord = {operation,alhorithm,encodingText,decodingText,key};
+                commit (ADD_RECCORD_TO_HISTORY, {writedReccord, currentUserIndex});
+            }
         }
     }
 });
+
+function getAddReccordConditions (currentUserIndex, checkedReccord) {
+    const {operation, alhorithm, encodingText, decodingText} = checkedReccord;
+
+    return [
+        currentUserIndex !== -1,
+        operation,
+        encodingText,
+        decodingText,
+        alhorithm
+    ];
+}
