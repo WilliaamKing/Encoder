@@ -91,7 +91,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['addReccordToHistory']),
+        ...mapActions(['addRecordToHistory']),
         flip (){
             const newPath = this.$route.path === '/encode' ? 'decode' : 'encode';
             this.$router.replace(newPath);
@@ -112,7 +112,7 @@ export default {
                 this.decode ();  
             }
 
-            this.addReccordToHistory(this.getHistoryReccord());
+            this.addRecordToHistory(this.getHistoryRecord());
             this.$emit('update-storage');
         },
         encode () {
@@ -147,12 +147,12 @@ export default {
                 }
             }      
         },
-        getHistoryReccord () {
+        getHistoryRecord () {
             return {
                         operation:  this.isActive.encode ? 'encoding' : 'decoding',
                         encodingText: this.encodingValue,
                         decodingText: this.decodingValue,
-                        alhorithm: this.selectValue,
+                        algorithm: this.selectValue,
                         date: new Date (),
                         key: this.selectValue === 'Caesar\'s code' ? this.ceasarCodingKey : null
                    };
