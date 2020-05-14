@@ -68,26 +68,31 @@ export const store = new Vuex.Store({
         },
         addReccordToHistory ({commit, state: {currentUser, users}}, reccord) {
             const currentUserIndex = users.findIndex((el) => el.name === currentUser.name);
-            const {operation, alhorithm, encodingText, decodingText, key} = reccord;
+            const {operation, alhorithm, encodingText, decodingText, key, date} = reccord;
             const addReccordConditions = getAddReccordConditions (currentUserIndex, reccord);
             const isAddReccord = addReccordConditions.every(el => el);
            
             if (isAddReccord) {
-                const writedReccord = {operation,alhorithm,encodingText,decodingText,key};
+                const writedReccord = {operation, alhorithm, encodingText, decodingText, key, date};
                 commit (ADD_RECCORD_TO_HISTORY, {writedReccord, currentUserIndex});
             }
+        },
+        getCurrentUserHistory ({state: {currentUser, users}}) {
+            const currentUserIndex = users.findIndex((el) => el.name === currentUser.name);
+            return users[currentUserIndex].historyOfCoding;
         }
     }
 });
 
 function getAddReccordConditions (currentUserIndex, checkedReccord) {
-    const {operation, alhorithm, encodingText, decodingText} = checkedReccord;
+    const {operation, alhorithm, encodingText, decodingText, date} = checkedReccord;
 
     return [
         currentUserIndex !== -1,
         operation,
         encodingText,
         decodingText,
-        alhorithm
+        alhorithm,
+        date
     ];
 }
