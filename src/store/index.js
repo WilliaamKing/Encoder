@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {SET_CURRENT_USER, SET_ERROR, ADD_USER, 
-        DELETE_CURRENT_USER, ADD_RECCORD_TO_HISTORY} from './mutation-types';
+        DELETE_CURRENT_USER, ADD_RECORD_TO_HISTORY} from './mutation-types';
 
 Vue.use(Vuex);
 
@@ -29,8 +29,8 @@ export const store = new Vuex.Store({
         [DELETE_CURRENT_USER]({users}, currentUserIndex) {   
             users.splice(currentUserIndex, 1); 
         },
-        [ADD_RECCORD_TO_HISTORY] ({users}, {writedReccord, currentUserIndex}) {
-            users[currentUserIndex].historyOfCoding.push(writedReccord);
+        [ADD_RECORD_TO_HISTORY] ({users}, {writedRecord, currentUserIndex}) {
+            users[currentUserIndex].historyOfCoding.push(writedRecord);
         }
     },
     actions: {
@@ -66,15 +66,15 @@ export const store = new Vuex.Store({
                 dispatch('resetCurrentUser');   
             }
         },
-        addReccordToHistory ({commit, state: {currentUser, users}}, reccord) {
+        addRecordToHistory ({commit, state: {currentUser, users}}, record) {
             const currentUserIndex = users.findIndex((el) => el.name === currentUser.name);
-            const {operation, alhorithm, encodingText, decodingText, key, date} = reccord;
-            const addReccordConditions = getAddReccordConditions (currentUserIndex, reccord);
-            const isAddReccord = addReccordConditions.every(el => el);
+            const {operation, algorithm, encodingText, decodingText, key, date} = record;
+            const addRecordConditions = getAddRecordConditions (currentUserIndex, record);
+            const isAddRecord = addRecordConditions.every(el => el);
            
-            if (isAddReccord) {
-                const writedReccord = {operation, alhorithm, encodingText, decodingText, key, date};
-                commit (ADD_RECCORD_TO_HISTORY, {writedReccord, currentUserIndex});
+            if (isAddRecord) {
+                const writedRecord = {operation, algorithm, encodingText, decodingText, key, date};
+                commit (ADD_RECORD_TO_HISTORY, {writedRecord, currentUserIndex});
             }
         },
         getCurrentUserHistory ({state: {currentUser, users}}) {
@@ -84,15 +84,15 @@ export const store = new Vuex.Store({
     }
 });
 
-function getAddReccordConditions (currentUserIndex, checkedReccord) {
-    const {operation, alhorithm, encodingText, decodingText, date} = checkedReccord;
+function getAddRecordConditions (currentUserIndex, checkedRecord) {
+    const {operation, algorithm, encodingText, decodingText, date} = checkedRecord;
 
     return [
         currentUserIndex !== -1,
         operation,
         encodingText,
         decodingText,
-        alhorithm,
+        algorithm,
         date
     ];
 }
