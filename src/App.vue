@@ -104,6 +104,7 @@ export default {
   },
   created() {
      this.uploadStore();
+     this.setCurrentPath('/');
   },
   methods: {
      ...mapActions(['setCurrentUser', 'addUser', 'resetCurrentUser', 'setError', 'deleteCurrentUser']),
