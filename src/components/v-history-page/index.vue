@@ -4,14 +4,14 @@
             <h2>History</h2>
         </header>
 
-        <v-history-card v-for="(reccord, index) in currentUserHistory"
-                        :date="reccord.date"
-                        :operation-name="reccord.operation"
-                        :algorithm="reccord.alhorithm"
-                        :encoding-text="reccord.encodingText"
-                        :decoding-text="reccord.decodingText"
-                        :coding-key="reccord.key"
-                        :key="getKey('history-reccord', index)">
+        <v-history-card v-for="(record, index) in currentUserHistory"
+                        :date="record.date"
+                        :operation-name="record.operation"
+                        :algorithm="record.algorithm"
+                        :encoding-text="record.encodingText"
+                        :decoding-text="record.decodingText"
+                        :coding-key="record.key"
+                        :key="getKey('history-record', index)">
         </v-history-card>
     </div>
 </template>
