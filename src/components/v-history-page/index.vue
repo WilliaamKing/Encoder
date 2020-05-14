@@ -4,17 +4,42 @@
             <h2>History</h2>
         </header>
 
-        <v-history-card></v-history-card>
+        <v-history-card v-for="(reccord, index) in currentUserHistory"
+                        :date="reccord.date"
+                        :operation-name="reccord.operation"
+                        :algorithm="reccord.alhorithm"
+                        :encoding-text="reccord.encodingText"
+                        :decoding-text="reccord.decodingText"
+                        :coding-key="reccord.key"
+                        :key="getKey('history-reccord', index)">
+        </v-history-card>
     </div>
 </template>
 
 <script>
 import VHistoryCard from '../v-history-card/index.vue';
+import {mapActions} from 'vuex';
 
 export default {
     name: 'v-history-page',
+    data () {
+       return {
+            currentUserHistory: null,
+       }
+    },
+    methods: {
+        ...mapActions (['getCurrentUserHistory']),
+        getKey (id, index) {
+            return `${id}-${index}`;
+        }
+    },
     components: {
         VHistoryCard
+    },
+    created (){
+        this.getCurrentUserHistory()
+            .then (result => this.currentUserHistory = result)
+            .catch(() => console.log('user history didn\'t find'));
     }
 }
 </script>
@@ -37,5 +62,9 @@ export default {
         & h2:first-letter {
             text-transform: uppercase;
         }
+    }
+
+    .v-history-card {
+        margin-bottom: 5px;
     }
 </style>
