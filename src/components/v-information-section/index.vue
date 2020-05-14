@@ -64,7 +64,7 @@ export default {
         position: relative;
         display: flex;
         justify-content: space-between;
-        width: 100%;
+        width: 99%;
         min-height: 175px;
         margin: 10px 0px 20px;
         padding: 10px;
