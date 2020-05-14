@@ -46,6 +46,7 @@ import VEncoderTextarea from '../v-encoder-textarea/index.vue';
 import {encoding as morseEncoding, decoding as morseDecoding} from 'encoding-module/morse';
 import {encoding as ceasarEncoding, decoding as ceasarDecoding} from 'encoding-module/ceasar';
 import {encoding as atbashEncoding, decoding as atbashDecoding} from 'encoding-module/atbash';
+import {mapActions} from 'vuex';
 
 export default {
     name: "v-coding-form",
@@ -90,6 +91,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['addReccordToHistory']),
         flip (){
             const newPath = this.$route.path === '/encode' ? 'decode' : 'encode';
             this.$router.replace(newPath);
@@ -98,8 +100,20 @@ export default {
             this.activeSection = section;
         },
         code (){
-            const currentPath = this.$route.path.slice(1);
-            currentPath === 'encode' ? this.encode () : this.decode (); 
+            if (this.selectValue) {
+                this.codingData ();
+            }
+        },
+        codingData (){
+            if (this.isActive.encode) {
+                this.encode ();
+            }
+            else {
+                this.decode ();  
+            }
+
+            this.addReccordToHistory(this.getHistoryReccord());
+            this.$emit('update-storage');
         },
         encode () {
             switch (this.selectValue) {
@@ -132,6 +146,15 @@ export default {
                     break;
                 }
             }      
+        },
+        getHistoryReccord () {
+            return {
+                        operation:  this.isActive.encode ? 'encoding' : 'decoding',
+                        encodingText: this.encodingValue,
+                        decodingText: this.decodingValue,
+                        alhorithm: this.selectValue,
+                        key: this.selectValue === 'Caesar\'s code' ? this.ceasarCodingKey : null
+                   };
         }
     },
     components: {
